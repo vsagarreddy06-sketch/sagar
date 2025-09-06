@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-PRODUCTS shopping</title>
+    <!-- Bootstrap CSS for modern styling and responsiveness -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        /* General styling for the page */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        /* Page sections will be hidden by default and shown with JavaScript */
+        .page-section {
+            display: none;
+        }
+        .page-section.active {
+            display: block;
+        }
+        /* Product card styling with hover effect */
+        .product-card {
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        /* Shopping cart icon styling */
+        .cart-icon-container {
+            position: relative;
+        }
+        #cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        /* Responsive contact form */
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+        }
+        /* Footer styling */
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        .footer .social-media a {
+            color: #fff;
+            margin: 0 0.5rem;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+        .footer .social-media a:hover {
+            color: #ccc;
+        }
+
+        /* Welcome Section Styling - now on a separate home page */
+        .welcome-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://placehold.co/1200x400/17a2b8/fff?text=Welcome+to+Corizo+Shopping') no-repeat center center;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 4rem 1rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .welcome-hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .welcome-hero p {
+            font-size: 1.25rem;
+        }
+       
+    </style>
+</head>
+<body>
+    <!-- Main Header and Navigation Bar -->
+    <header class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#" id="home-link">E-PRODUCTS shopping</a>
+            <div class="d-flex align-items-center">
+                <!-- Navigation links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- Updated data-page to point to the new home-page section -->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#" id="home-nav-link" data-page="home-page">Home</a>
+                    </li>
+                    <!-- Updated data-page to point to the new products-page section -->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#" id="products-nav-link" data-page="products-page">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-none" href="#" id="admin-link" data-page="admin-dashboard-page">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#" id="about-nav-link" data-page="about-page">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#" id="contact-nav-link" data-page="contact-page">Contact</a>
+                    </li>
+                </ul>
+               
+                <!-- Action buttons -->
+                <a class="nav-link text-white me-2 d-none" href="#" id="my-orders-link" data-page="orders-page">My Orders</a>
+                <!-- The account link now navigates to the new account page -->
+                <a class="nav-link text-white me-2" href="#" id="account-link" data-page="account-page">Account</a>
+                <!-- Settings button removed as requested -->
+                <div class="cart-icon-container ms-2 me-2">
+                    <button class="btn btn-outline-light position-relative" id="cart-btn">
+                        <i class="fas fa-shopping-cart"></i> Cart
+                        <span id="cart-count">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <!-- New, separate Home Page section -->
+        <section id="home-page" class="page-section active">
+            <!-- Welcome Section moved here -->
+            <div class="welcome-hero">
+                <h1>Welcome to CORIZO-SHOPPING!</h1>
+                <p>Explore our curated collection of electronics and more.</p>
+            </div>
+            <p class="text-center lead">Discover a world of amazing products with our convenient shopping experience.</p>
+            <div class="text-center mt-4">
+                <button class="btn btn-lg btn-primary" id="go-to-products-btn" data-page="products-page">Shop Now</button>
+            </div>
+        </section>
+
+        <!-- Products Page (formerly Dashboard) -->
+        <!-- Renamed the ID from 'dashboard-page' to 'products-page' -->
+        <section id="products-page" class="page-section">
+            <h2 class="text-center mb-4">Our Products</h2>
+            <div id="product-container" class="row g-4">
+                <!-- Products will be dynamically loaded here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Specific Product Page with sub-products -->
+        <section id="product-page" class="page-section">
+            <div id="product-details" class="row g-4 mb-5">
+                <!-- Main product details will be dynamically loaded here -->
+            </div>
+            <div class="text-center mt-4">
+                <button class="btn btn-secondary" id="back-to-dashboard-btn">Back to Products</button>
+            </div>
+        </section>
+       
+        <!-- Admin Dashboard Page -->
+        <section id="admin-dashboard-page" class="page-section">
+            <h2 class="text-center mb-4">Admin Dashboard</h2>
+            <!-- Admin Dashboard Navigation Tabs -->
+            <ul class="nav nav-tabs mb-4">
+                <li class="nav-item">
+                    <a class="nav-link active" id="manage-products-tab" data-bs-toggle="tab" href="#manage-products">Manage Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="view-orders-tab" data-bs-toggle="tab" href="#view-orders">Customer Orders</a> <!-- Renamed from View Orders -->
+                </li>
+            </ul>
+
+            <!-- Admin Dashboard Tab Content -->
+            <div class="tab-content">
+                <!-- Manage Products Tab Pane -->
+                <div class="tab-pane fade show active" id="manage-products">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="card p-4 shadow-sm">
+                                <h4 class="card-title mb-3">Add New Product</h4>
+                                <form id="add-product-form">
+                                    <div class="mb-3">
+                                        <label for="product-name" class="form-label">Product Name</label>
+                                        <input type="text" class="form-control" id="product-name" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="product-price" class="form-label">Price</label>
+                                        <input type="number" step="0.01" class="form-control" id="product-price" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="product-image" class="form-label">Image URL</label>
+                                        <input type="url" class="form-control" id="product-image" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="product-description" class="form-label">Description</label>
+                                        <textarea class="form-control" id="product-description" rows="3" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-success w-100">Add Product</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card p-4 shadow-sm">
+                                <h4 class="card-title mb-3">Manage Products</h4>
+                                <ul id="admin-product-list" class="list-group list-group-flush">
+                                    <!-- Products to manage will be dynamically loaded here -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View Orders Tab Pane -->
+                <div class="tab-pane fade" id="view-orders">
+                    <div class="card p-4 shadow-sm">
+                        <h4 class="card-title mb-3">Customer Orders</h4>
+                        <div id="admin-orders-list">
+                            <!-- Customer orders will be dynamically loaded here by JavaScript -->
+                            <p class="text-center text-muted">No orders placed yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New: My Account Page with editable fields -->
+        <section id="account-page" class="page-section">
+            <h2 class="text-center mb-4">My Account</h2>
+            <div class="card p-4 mx-auto" style="max-width: 500px;">
+                <div class="text-center mb-3">
+                    <i class="fas fa-user-circle fa-5x text-secondary mb-2"></i>
+                </div>
+                <!-- Form for user information -->
+                <form id="account-info-form">
+                    <div class="mb-3">
+                        <label for="account-name" class="form-label fw-bold">Name</label>
+                        <input type="text" class="form-control" id="account-name" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="account-email" class="form-label fw-bold">Email</label>
+                        <input type="email" class="form-control" id="account-email" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="account-phone" class="form-label fw-bold">Phone</label>
+                        <input type="tel" class="form-control" id="account-phone" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="account-address" class="form-label fw-bold">Address</label>
+                        <textarea class="form-control" id="account-address" rows="3" disabled></textarea>
+                    </div>
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="button" class="btn btn-primary me-2" id="edit-account-btn">Edit</button>
+                        <button type="submit" class="btn btn-success d-none" id="save-account-btn">Save</button>
+                    </div>
+                    <!-- Logout button added directly to the account page -->
+                    <button type="button" class="btn btn-danger w-100 mt-3" id="logout-btn">Logout</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- My Orders Page -->
+        <section id="orders-page" class="page-section">
+            <h2 class="text-center mb-4">My Orders</h2>
+            <div id="orders-list" class="list-group">
+                <!-- Orders will be dynamically loaded here -->
+            </div>
+        </section>
+
+        <!-- Order Summary Page -->
+        <section id="order-summary-page" class="page-section">
+            <h2 class="text-center mb-4">Order Summary</h2>
+            <div class="card p-4">
+                <ul id="order-summary-items" class="list-group list-group-flush mb-3">
+                    <!-- Summary items from the cart -->
+                </ul>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Total: <span id="summary-total" class="fw-bold">₹0.00</span></h5>
+                    <button class="btn btn-primary" id="proceed-to-checkout-btn">Proceed to Checkout</button>
+                </div>
+                <div class="mt-3 text-end">
+                    <button class="btn btn-outline-secondary" id="cancel-summary-btn">Cancel Order</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payment Page -->
+        <section id="payment-page" class="page-section">
+            <h2 class="text-center mb-4">Payment</h2>
+            <div class="card p-4 text-center">
+                <h5 class="mb-3">Choose a payment method</h5>
+                <button class="btn btn-success btn-lg w-100" id="cod-btn">Cash on Delivery</button>
+                <button class="btn btn-link mt-3" id="back-to-summary-btn">Go back</button>
+            </div>
+        </section>
+
+        <!-- About Page -->
+        <section id="about-page" class="page-section">
+            <h2 class="text-center mb-4">About Us</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quas dolor vel doloribus dicta doloremque iure molestiae voluptas nesciunt? Harum non ducimus corrupti quo animi at vitae dicta ipsam soluta.
+            Eveniet veritatis ipsa illo consectetur pariatur adipisci tempore ipsam ullam maxime saepe, dolorum sequi quibusdam temporibus accusamus? Repellat cum fugiat rerum iusto optio! Quibusdam accusamus nesciunt hic aliquam praesentium consequatur?
+            Aliquid vero quos temporibus at cupiditate labore neque ipsum aut quia voluptates optio, nihil expedita ullam praesentium eligendi facere perspiciatis possimus asperiores? Aspernatur eum voluptate neque eos ex earum quasi.
+            Voluptatum sint sunt accusamus rem maiores explicabo quo pariatur! Laudantium laborum rem et porro blanditiis odio, tempore esse, ullam autem quis provident dolor ipsa voluptas nobis at cum sed repellendus.
+            Aperiam voluptatem repudiandae reiciendis suscipit, veritatis rem? Placeat, ex sunt delectus id neque quam aut reiciendis minima maiores eos in quia est ipsum deserunt assumenda laboriosam mollitia velit. Officia, in. ipsum dolor sit amet consectetur adipisicing elit. Ipsum ullam, aspernatur laudantium at quaerat laborum magni blanditiis quidem vel similique nesciunt, exercitationem nulla explicabo, quae provident dolore eum odit molestiae?</p>
+        </section>
+
+        <!-- Contact Page -->
+        <section id="contact-page" class="page-section">
+            <h2 class="text-center mb-4">Contact Us</h2>
+            <form class="contact-form">
+                <div class="mb-3">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="message">Message</label>
+                    <textarea name="" id="message" rows="4" class="form-control"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </section>
+    </main>
+   
+    <!-- Modals (pop-up windows) -->
+    <!-- Registration Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Register</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="register-form">
+                        <div class="mb-3">
+                            <label for="reg-email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="reg-email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reg-password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="reg-password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reg-phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="reg-phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reg-address" class="form-label">Shipping Address</label>
+                            <textarea class="form-control" id="reg-address" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Register</button>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <p class="mb-0">Already have an account? <a href="#" id="show-login-link">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="login-form">
+                        <div class="mb-3">
+                            <label for="login-email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="login-email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="login-password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="login-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <p class="mb-0">Don't have an account? <a href="#" id="show-register-link">Register here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <!-- Settings Modal removed -->
+
+    <!-- Cart Modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">Shopping Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul id="cart-items" class="list-group list-group-flush mb-3">
+                        <!-- Cart items will be dynamically loaded here -->
+                    </ul>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Total: <span id="cart-total" class="fw-bold">₹0.00</span></h5>
+                        <button class="btn btn-success" id="view-order-summary-btn" data-bs-dismiss="modal">Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Modal for Order Confirmation -->
+    <div class="modal fade" id="orderConfirmationModal" tabindex="-1" aria-labelledby="orderConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderConfirmationModalLabel">Confirm Your Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 class="fw-bold">Shipping Details</h6>
+                    <p id="confirmation-name"></p>
+                    <p id="confirmation-phone"></p>
+                    <p id="confirmation-address"></p>
+                    <button class="btn btn-sm btn-outline-secondary mt-2" id="edit-address-btn">Edit Details</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" id="confirm-order-btn">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>corizo&copy;july 2025.all rights reserved.</p>
+        <!-- <div class="footer.links">
+            <a href="#" data-page="home-page">home</a>
+            <a href="#" data-page="products-page">products</a>
+            <a href="#" data-page="about-page">about</a>
+            <a href="#" data-page="contact-page">contact</a>
+        </div> -->
+        <p class="mt-2">
+            follow us on:
+        </p>
+        <div class="social-media">
+            <a href="https://www.facebook.com/"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.youtube.com/"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Data for products and sub-products
+            let products = [
+                { id: 1, name: 'Smartwatch', price: 1500, imageUrl: 'https://placehold.co/300x200/525252/fff?text=Smartwatch', description: 'A sleek and modern smartwatch to keep you connected. Features include heart rate monitoring, GPS, and a long-lasting battery.', subProducts: [
+                    { id: '1-a', name: 'Smartwatch (Black)', price: 150.00, imageUrl: 'https://placehold.co/300x200/000000/fff?text=Black+Watch', description: 'Classic black finish with a durable silicone band.' },
+                    { id: '1-b', name: 'Smartwatch (Silver)', price: 155.00, imageUrl: 'https://placehold.co/300x200/C0C0C0/000?text=Silver+Watch', description: 'Elegant silver finish with a stainless steel mesh band.' }
+                ]},
+                { id: 2, name: 'Wireless Headphones', price: 75.50, imageUrl: 'https://placehold.co/300x200/525252/fff?text=Headphones', description: 'Experience immersive sound with these noise-cancelling wireless headphones. Perfect for music lovers on the go.', subProducts: [
+                    { id: '2-a', name: 'Headphones (Midnight Blue)', price: 75.50, imageUrl: 'https://placehold.co/300x200/2C3E50/fff?text=Blue+Headphones', description: 'Stylish and comfortable in a deep midnight blue.' },
+                    { id: '2-b', name: 'Headphones (Crimson Red)', price: 78.00, imageUrl: 'https://placehold.co/300x200/9C0D0D/fff?text=Red+Headphones', description: 'Stand out with this vibrant crimson red color.' }
+                ]},
+               
+               
+                { id: 3, name: 'Wired Mouse', price: 150.00, imageUrl: 'https://placehold.co/300x200/525252/fff?text=Mouse', description: 'A sleek and modern smartwatch to keep you connected. Features include heart rate monitoring, GPS, and a long-lasting battery.', subProducts: [
+                    { id: '3-a', name: 'Mouse (Black)', price: 150.00, imageUrl: 'https://placehold.co/300x200/000000/fff?text=Black+Mouse', description: 'Black coloured branded wired mouse.' },
+                    { id: '3-b', name: 'Mouse (Silver)', price: 155.00, imageUrl: 'https://placehold.co/300x200/C0C0C0/000?text=Silver+Mouse', description: 'Silver coloured branded wired mouse.' }
+                ]},
+                { id: 4, name: 'Speaker', price: 75.50, imageUrl: 'https://placehold.co/300x200/525252/fff?text=Speaker', description: 'Experience immersive sound with these noise-cancelling wireless headphones. Perfect for music lovers on the go.', subProducts: [
+                    { id: '4-a', name: 'JBL (Midnight Blue)', price: 75.50, imageUrl: 'https://placehold.co/300x200/2C3E50/fff?text=Blue+Speakers', description: 'Stylish and comfortable in a deep midnight blue.' },
+                    { id: '4-b', name: 'BOAT (Crimson Red)', price: 78.00, imageUrl: 'https://placehold.co/300x200/9C0D0D/fff?text=Red+Speakers', description: 'Stand out with this vibrant crimson red color.' }
+                ]},
+               
+            ];
+            let nextProductId = products.length + 1; // Used to assign a unique ID to new products
+
+            // State variables for the app
+            let cart = [];
+            let orders = []; // This will now store all orders, including customer data
+            let loggedIn = false;
+            let isAdmin = false;
+            // New: Placeholder for user data
+            let userData = {
+                name: "",
+                email: "",
+                phone: "",
+                address: ""
+            };
+           
+            // Hardcoded Admin Credentials
+            const ADMIN_EMAIL = 'admin@example.com';
+            const ADMIN_PASSWORD = 'admin_password';
+
+            // --- DOM Elements & Modals ---
+            const mainSections = document.querySelectorAll('.page-section');
+            const footer = document.querySelector('.footer');
+            const productContainer = document.getElementById('product-container');
+            const productDetailsContainer = document.getElementById('product-details');
+            const ordersList = document.getElementById('orders-list');
+            const cartBtn = document.getElementById('cart-btn');
+            const cartCountElement = document.getElementById('cart-count');
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalElement = document.getElementById('cart-total');
+            const summaryTotalElement = document.getElementById('summary-total');
+            const summaryItemsContainer = document.getElementById('order-summary-items');
+           
+            // Buttons and Links
+            const backToDashboardBtn = document.getElementById('back-to-dashboard-btn');
+            const proceedToCheckoutBtn = document.getElementById('proceed-to-checkout-btn');
+            const backToSummaryBtn = document.getElementById('back-to-summary-btn');
+            const cancelSummaryBtn = document.getElementById('cancel-summary-btn');
+            const codBtn = document.getElementById('cod-btn');
+            const viewOrderSummaryBtn = document.getElementById('view-order-summary-btn');
+            const logoutBtn = document.getElementById('logout-btn'); // Renamed from settingsLogoutBtn
+            const accountLink = document.getElementById('account-link');
+            const myOrdersLink = document.getElementById('my-orders-link');
+            const goToProductsBtn = document.getElementById('go-to-products-btn');
+            const adminLink = document.getElementById('admin-link');
+           
+            // Admin Dashboard elements
+            const addProductForm = document.getElementById('add-product-form');
+            const adminProductList = document.getElementById('admin-product-list');
+            const adminOrdersList = document.getElementById('admin-orders-list'); // New: for admin to view all orders
+            const manageProductsTab = document.getElementById('manage-products-tab'); // New tab
+            const viewOrdersTab = document.getElementById('view-orders-tab'); // New tab
+
+
+            // Account page elements
+            const accountInfoForm = document.getElementById('account-info-form');
+            const accountNameInput = document.getElementById('account-name');
+            const accountEmailInput = document.getElementById('account-email');
+            const accountPhoneInput = document.getElementById('account-phone');
+            const accountAddressInput = document.getElementById('account-address');
+            const editAccountBtn = document.getElementById('edit-account-btn');
+            const saveAccountBtn = document.getElementById('save-account-btn');
+           
+            // New Order Confirmation Modal elements
+            const orderConfirmationModal = new bootstrap.Modal(document.getElementById('orderConfirmationModal'));
+            const confirmOrderBtn = document.getElementById('confirm-order-btn');
+            const editAddressBtn = document.getElementById('edit-address-btn');
+
+
+            // Modals
+            let registerModal, loginModal, cartModal; // settingsModal removed
+            try {
+                registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
+                loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
+            } catch (error) {
+                console.error("Error initializing Bootstrap modals. Make sure bootstrap.bundle.min.js is loaded correctly.", error);
+            }
+           
+            // Forms
+            const registerForm = document.getElementById('register-form');
+            const loginForm = document.getElementById('login-form');
+
+            // --- Utility Functions ---
+            // Function to switch between different sections/pages
+            const navigateTo = (sectionId) => {
+                mainSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(sectionId).classList.add('active');
+
+                // Hide the footer on the home page, show on all others
+                if (sectionId === 'home-page') {
+                    footer.style.display = 'none';
+                } else {
+                    footer.style.display = 'block';
+                }
+            };
+
+            // Function to display a toast notification
+            const showNotification = (message, type = 'success') => {
+                const toast = document.createElement('div');
+                toast.className = `toast align-items-center text-white bg-${type} border-0 position-fixed bottom-0 end-0 m-3`;
+                toast.setAttribute('role', 'alert');
+                toast.setAttribute('aria-live', 'assertive');
+                toast.setAttribute('aria-atomic', 'true');
+                toast.innerHTML = `
+                    <div class="d-flex">
+                        <div class="toast-body">${message}</div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                `;
+                document.body.appendChild(toast);
+                const toastInstance = new bootstrap.Toast(toast, { delay: 3000 });
+                toastInstance.show();
+                toast.addEventListener('hidden.bs.toast', () => {
+                    toast.remove();
+                });
+            };
+
+            // Function to format price with Indian Rupee symbol
+            const formatPrice = (price) => `₹${price.toFixed(2)}`;
+           
+            // --- Core App Logic ---
+            const updateUI = () => {
+                // Toggle auth-related UI elements based on login status
+                if (loggedIn) {
+                    accountLink.textContent = 'My Account';
+                    myOrdersLink.classList.remove('d-none');
+                    logoutBtn.classList.remove('d-none'); // Show logout button on account page
+                } else {
+                    accountLink.textContent = 'Account';
+                    myOrdersLink.classList.add('d-none');
+                    logoutBtn.classList.add('d-none'); // Hide logout button on account page
+                }
+
+                // Show admin link only if logged in as admin
+                if (isAdmin) {
+                    adminLink.classList.remove('d-none');
+                } else {
+                    adminLink.classList.add('d-none');
+                }
+            };
+           
+            // Renders the list of products on the products page
+            const renderProducts = () => {
+                productContainer.innerHTML = '';
+                products.forEach(product => {
+                    const hasSubProducts = product.subProducts && product.subProducts.length > 0;
+                    const buttonText = hasSubProducts ? 'View Options' : 'Add to Cart';
+                    const buttonClass = hasSubProducts ? 'view-product-details-btn' : 'add-to-cart-btn';
+                   
+                    const productCard = document.createElement('div');
+                    productCard.className = 'col-sm-6 col-md-4 col-lg-3';
+                    productCard.innerHTML = `
+                        <div class="card product-card shadow-sm h-100" data-product-id="${product.id}">
+                            <img src="${product.imageUrl}" class="card-img-top" alt="${product.name}">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">${product.name}</h5>
+                                <p class="card-text fw-bold mt-auto">${formatPrice(product.price)}</p>
+                                <button class="btn btn-primary mt-2 ${buttonClass}" data-product-id="${product.id}">${buttonText}</button>
+                            </div>
+                        </div>
+                    `;
+                    productContainer.appendChild(productCard);
+                });
+            };
+           
+            // Renders the new account page with user info
+            const renderAccountPage = () => {
+                accountNameInput.value = userData.name;
+                accountEmailInput.value = userData.email;
+                accountPhoneInput.value = userData.phone;
+                accountAddressInput.value = userData.address;
+
+                // Set initial state to view mode
+                accountNameInput.disabled = true;
+                accountEmailInput.disabled = true;
+                accountPhoneInput.disabled = true;
+                accountAddressInput.disabled = true;
+                editAccountBtn.classList.remove('d-none');
+                saveAccountBtn.classList.add('d-none');
+
+                navigateTo('account-page');
+            };
+
+            // Renders the detailed page for a single product, including sub-products
+            const renderProductDetailPage = (productId) => {
+                const product = products.find(p => p.id === parseInt(productId));
+                if (!product) {
+                    showNotification('Product not found', 'danger');
+                    return;
+                }
+               
+                let detailsHtml = `
+                    <div class="col-md-5">
+                        <img src="${product.imageUrl}" class="img-fluid rounded-start" alt="${product.name}">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body">
+                            <h2 class="card-title">${product.name}</h2>
+                            <p class="card-text text-muted">${formatPrice(product.price)}</p>
+                            <p class="card-text">${product.description}</p>
+                            ${!product.subProducts ? `<button class="btn btn-primary mt-3 add-to-cart-btn" data-product-id="${product.id}">Add to Cart</button>` : ''}
+                        </div>
+                    </div>
+                `;
+
+                // If sub-products exist, render them as additional cards
+                if (product.subProducts) {
+                    detailsHtml += `
+                        <div class="col-12 mt-4">
+                            <h3>Available Options</h3>
+                            <div class="row g-3" id="sub-product-options">
+                                ${product.subProducts.map(subProduct => `
+                                    <div class="col-md-4">
+                                        <div class="card product-card h-100">
+                                            <img src="${subProduct.imageUrl}" class="card-img-top" alt="${subProduct.name}">
+                                            <div class="card-body d-flex flex-column">
+                                                <h5 class="card-title">${subProduct.name}</h5>
+                                                <p class="card-text text-muted">${formatPrice(subProduct.price)}</p>
+                                                <p class="card-text">${subProduct.description}</p>
+                                                <button class="btn btn-primary mt-auto add-to-cart-btn" data-sub-product-id="${subProduct.id}">Add to Cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+               
+                productDetailsContainer.innerHTML = detailsHtml;
+                navigateTo('product-page');
+            };
+
+            // Updates the cart display in the modal and the cart count
+            const updateCartDisplay = () => {
+                cartItemsContainer.innerHTML = '';
+                let total = 0;
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<li class="list-group-item text-center text-muted">Your cart is empty.</li>';
+                    document.getElementById('view-order-summary-btn').classList.add('disabled');
+                } else {
+                    document.getElementById('view-order-summary-btn').classList.remove('disabled');
+                    cart.forEach(item => {
+                        const cartItem = document.createElement('li');
+                        cartItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                        cartItem.innerHTML = `
+                            <img src="${item.imageUrl}" class="me-3 rounded" style="width: 50px;">
+                            ${item.name}
+                            <span class="ms-auto">${formatPrice(item.price)}</span>
+                            <button class="btn btn-sm btn-danger ms-2 remove-from-cart-btn" data-product-id="${item.id}"><i class="fas fa-trash-alt"></i></button>
+                        `;
+                        cartItemsContainer.appendChild(cartItem);
+                        total += item.price;
+                    });
+                }
+                cartTotalElement.textContent = formatPrice(total);
+                cartCountElement.textContent = cart.length;
+            };
+
+            // Renders the order summary page before payment
+            const renderOrderSummary = () => {
+                summaryItemsContainer.innerHTML = '';
+                let total = 0;
+                if (cart.length === 0) {
+                    summaryItemsContainer.innerHTML = '<li class="list-group-item text-center text-muted">Your cart is empty.</li>';
+                } else {
+                    cart.forEach(item => {
+                        const summaryItem = document.createElement('li');
+                        summaryItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                        summaryItem.innerHTML = `
+                            ${item.name}
+                            <span>${formatPrice(item.price)}</span>
+                        `;
+                        summaryItemsContainer.appendChild(summaryItem);
+                        total += item.price;
+                    });
+                }
+                summaryTotalElement.textContent = formatPrice(total);
+                navigateTo('order-summary-page');
+            };
+
+            // Renders the list of past orders for the regular user
+            const renderOrders = () => {
+                ordersList.innerHTML = '';
+                const userOrders = orders.filter(order => order.customer.email === userData.email); // Filter orders for the current user
+                if (userOrders.length === 0) {
+                    ordersList.innerHTML = '<div class="alert alert-info text-center">You have no past orders.</div>';
+                } else {
+                    // Loop through each order and create a card for it
+                    userOrders.forEach((order, index) => {
+                        const orderCard = document.createElement('div');
+                        orderCard.className = 'card mb-3';
+                        let orderTotal = 0;
+
+                        // Create the list of items inside the order
+                        const itemsHtml = order.items.map(item => {
+                            orderTotal += item.price;
+                            return `<li class="list-group-item d-flex justify-content-between">
+                                <span>${item.name}</span>
+                                <span>${formatPrice(item.price)}</span>
+                            </li>`;
+                        }).join('');
+
+                        // Create the final card HTML
+                        orderCard.innerHTML = `
+                            <div class="card-header bg-light fw-bold d-flex justify-content-between align-items-center">
+                                Order #${order.id} - Total: ${formatPrice(orderTotal)}
+                                <button class="btn btn-danger btn-sm delete-order-btn" data-order-id="${order.id}">Delete Order</button>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                ${itemsHtml}
+                            </ul>
+                            <div class="card-footer text-muted">
+                                Placed on: ${new Date(order.date).toLocaleDateString()}
+                            </div>
+                        `;
+                        ordersList.appendChild(orderCard);
+                    });
+                }
+                navigateTo('orders-page');
+            };
+           
+            // Deletes an order from the orders array
+            const deleteOrder = (orderId) => {
+                const initialOrderCount = orders.length;
+                orders = orders.filter(order => order.id !== parseInt(orderId));
+                if (orders.length < initialOrderCount) {
+                    showNotification('Order deleted successfully!', 'success');
+                    renderOrders(); // Re-render the orders page to reflect the deletion
+                }
+            };
+           
+            // Renders the admin dashboard with the current list of products
+            const renderAdminDashboard = () => {
+                adminProductList.innerHTML = '';
+                if (products.length === 0) {
+                    adminProductList.innerHTML = '<li class="list-group-item text-center text-muted">No products available.</li>';
+                } else {
+                    products.forEach(product => {
+                        const productItem = document.createElement('li');
+                        productItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                        productItem.innerHTML = `
+                            <div>
+                                <h6 class="mb-0">${product.name}</h6>
+                                <small class="text-muted">${formatPrice(product.price)}</small>
+                            </div>
+                            <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.id}">Delete</button>
+                        `;
+                        adminProductList.appendChild(productItem);
+                    });
+                }
+                // When entering admin dashboard, default to 'Manage Products' tab and render products
+                if (manageProductsTab.classList.contains('active')) {
+                     // Ensure the correct tab content is shown on initial load
+                    document.getElementById('manage-products').classList.add('show', 'active');
+                    document.getElementById('view-orders').classList.remove('show', 'active');
+                }
+                navigateTo('admin-dashboard-page');
+            };
+
+            // Renders all customer orders for the admin
+            const renderAdminOrders = () => {
+                adminOrdersList.innerHTML = '';
+                if (orders.length === 0) {
+                    adminOrdersList.innerHTML = '<p class="text-center text-muted">No customer orders have been placed yet.</p>';
+                } else {
+                    orders.forEach((order, index) => {
+                        let orderTotal = 0;
+                        const itemsHtml = order.items.map(item => {
+                            orderTotal += item.price;
+                            return `<li class="list-group-item d-flex justify-content-between">
+                                <span>${item.name}</span>
+                                <span>${formatPrice(item.price)}</span>
+                            </li>`;
+                        }).join('');
+
+                        const orderCard = document.createElement('div');
+                        orderCard.className = 'card mb-3 shadow-sm';
+                        orderCard.innerHTML = `
+                            <div class="card-header bg-primary text-white fw-bold">
+                                Order #${order.id} - ${new Date(order.date).toLocaleDateString()}
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Customer: ${order.customer.name || 'N/A'}</h5>
+                                <p class="card-text mb-1">Email: ${order.customer.email || 'N/A'}</p>
+                                <p class="card-text mb-1">Phone: ${order.customer.phone || 'N/A'}</p>
+                                <p class="card-text mb-3">Address: ${order.customer.address || 'N/A'}</p>
+                                <h6 class="mb-2">Ordered Items:</h6>
+                                <ul class="list-group list-group-flush mb-3">
+                                    ${itemsHtml}
+                                </ul>
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                                    <h5 class="mb-0">Total: <span class="fw-bold">${formatPrice(orderTotal)}</span></h5>
+                                    <button class="btn btn-sm btn-danger delete-admin-order-btn" data-order-id="${order.id}">Delete Order</button>
+                                </div>
+                            </div>
+                        `;
+                        adminOrdersList.appendChild(orderCard);
+                    });
+                }
+            };
+           
+            // Adds a new product via the admin form
+            const addProduct = (e) => {
+                e.preventDefault();
+                const newProduct = {
+                    id: nextProductId++,
+                    name: document.getElementById('product-name').value,
+                    price: parseFloat(document.getElementById('product-price').value),
+                    imageUrl: document.getElementById('product-image').value,
+                    description: document.getElementById('product-description').value
+                };
+                products.push(newProduct);
+                showNotification(`${newProduct.name} added successfully!`);
+                addProductForm.reset();
+                renderAdminDashboard(); // Update the list on the admin dashboard
+            };
+           
+            // Deletes a product
+            const deleteProduct = (productId) => {
+                const initialCount = products.length;
+                products = products.filter(p => p.id !== parseInt(productId));
+                if (products.length < initialCount) {
+                    showNotification('Product deleted successfully!', 'success');
+                    renderAdminDashboard(); // Update the list
+                }
+            };
+
+
+            // Places a new order and clears the cart
+            const placeOrder = () => {
+                if (cart.length === 0) {
+                    showNotification('Your cart is empty!', 'danger');
+                    return;
+                }
+                const newOrder = {
+                    id: orders.length + 1,
+                    items: [...cart],
+                    date: new Date().toISOString(),
+                    customer: { ...userData } // Store customer data with the order
+                };
+                orders.push(newOrder);
+                cart = []; // Empty the cart
+                updateCartDisplay();
+                showNotification('Order has been placed successfully!', 'success');
+                // For regular users, navigate to their orders page.
+                // Admin can view all orders from their dashboard.
+                if (!isAdmin) {
+                    navigateTo('orders-page'); // Navigate to the orders page to show the new order
+                    renderOrders(); // Re-render the orders page to display the new order
+                } else {
+                    navigateTo('admin-dashboard-page');
+                    // Ensure the 'Customer Orders' tab is active and rendered when an admin places an order (unlikely, but good to handle)
+                    viewOrdersTab.click(); // Simulate a click on the 'Customer Orders' tab
+                }
+            };
+
+            // Adds a product or sub-product to the cart
+            const addToCart = (productId, subProductId) => {
+                let itemToAdd;
+                if (subProductId) {
+                    const parentProduct = products.find(p => p.subProducts && p.subProducts.some(sp => sp.id === subProductId));
+                    if (parentProduct) {
+                        itemToAdd = parentProduct.subProducts.find(sp => sp.id === subProductId);
+                    }
+                } else {
+                    itemToAdd = products.find(p => p.id === parseInt(productId) && !p.subProducts);
+                }
+
+                if (itemToAdd) {
+                    cart.push(itemToAdd);
+                    updateCartDisplay();
+                    showNotification(`${itemToAdd.name} added to cart.`);
+                }
+            };
+           
+            // Removes an item from the cart
+            const removeFromCart = (itemId) => {
+                const index = cart.findIndex(item => item.id === itemId);
+                if (index > -1) {
+                    const removedItem = cart.splice(index, 1);
+                    updateCartDisplay();
+                    showNotification(`${removedItem[0].name} removed from cart.`, 'warning');
+                }
+            };
+           
+            // Placeholder for login logic
+            const handleLogin = (e) => {
+                e.preventDefault();
+                const userEmail = document.getElementById('login-email').value;
+                const userPassword = document.getElementById('login-password').value;
+
+                if (userEmail === ADMIN_EMAIL && userPassword === ADMIN_PASSWORD) {
+                    loggedIn = true;
+                    isAdmin = true;
+                    userData = {
+                        name: "Admin",
+                        email: ADMIN_EMAIL,
+                        phone: "N/A", // Admin doesn't need phone/address for their account
+                        address: "N/A"
+                    };
+                    loginModal.hide();
+                    showNotification('Admin logged in successfully!');
+                    updateUI();
+                    renderAdminDashboard(); // Admins go to their dashboard
+                } else {
+                    loggedIn = true;
+                    isAdmin = false;
+                     // Simulate fetching user data after login
+                    userData = {
+                        name: userEmail.split('@')[0],
+                        email: userEmail,
+                        phone: "", // Will be filled in registration/account page
+                        address: "" // Will be filled in registration/account page
+                    };
+                    loginModal.hide();
+                    showNotification('Logged in successfully!');
+                    updateUI();
+                    renderAccountPage(); // Regular users go to their account page
+                }
+            };
+
+            // Placeholder for registration logic
+            const handleRegister = (e) => {
+                e.preventDefault();
+                const userEmail = document.getElementById('reg-email').value;
+                const userPhone = document.getElementById('reg-phone').value;
+                const userAddress = document.getElementById('reg-address').value;
+               
+                loggedIn = true;
+                isAdmin = false;
+                userData = {
+                    name: userEmail.split('@')[0],
+                    email: userEmail,
+                    phone: userPhone,
+                    address: userAddress
+                };
+               
+                registerModal.hide();
+                showNotification('Registered and logged in successfully!', 'success');
+                updateUI();
+                renderAccountPage();
+            };
+           
+            // Placeholder for logout logic
+            const handleLogout = () => {
+                loggedIn = false;
+                isAdmin = false;
+                // Reset user data
+                userData = {
+                    name: "",
+                    email: "",
+                    phone: "",
+                    address: ""
+                };
+                showNotification('Logged out successfully!');
+                updateUI();
+                navigateTo('home-page');
+            };
+           
+            // Toggles between view and edit mode on the account page
+            const toggleEditMode = () => {
+                const isEditing = !accountNameInput.disabled; // Check if inputs are currently enabled
+               
+                accountNameInput.disabled = isEditing;
+                accountEmailInput.disabled = isEditing;
+                accountPhoneInput.disabled = isEditing;
+                accountAddressInput.disabled = isEditing;
+
+                if (isEditing) {
+                    editAccountBtn.classList.remove('d-none');
+                    saveAccountBtn.classList.add('d-none');
+                } else {
+                    editAccountBtn.classList.add('d-none');
+                    saveAccountBtn.classList.remove('d-none');
+                }
+            };
+           
+            // Handles saving the updated user info
+            const handleSave = (e) => {
+                e.preventDefault();
+                userData.name = accountNameInput.value;
+                userData.email = accountEmailInput.value;
+                userData.phone = accountPhoneInput.value;
+                userData.address = accountAddressInput.value;
+               
+                toggleEditMode(); // Switch back to view mode
+                showNotification('Account information updated successfully!');
+            };
+
+            // --- Event Listeners ---
+            document.body.addEventListener('click', (event) => {
+                const target = event.target;
+               
+                // Handle click on product card, image, or "View Options" button
+                if (target.matches('.view-product-details-btn')) {
+                    const productId = target.dataset.productId;
+                    renderProductDetailPage(productId);
+                } else if (target.closest('.product-card') && !target.matches('.add-to-cart-btn')) {
+                    // Check if it's a click on the card itself, excluding the 'add to cart' button
+                    const productId = target.closest('.product-card').dataset.productId;
+                    renderProductDetailPage(productId);
+                }
+
+                // Add to cart button
+                if (target.matches('.add-to-cart-btn')) {
+                    const productId = target.dataset.productId;
+                    const subProductId = target.dataset.subProductId;
+                    addToCart(productId, subProductId);
+                }
+               
+                // Remove from cart button
+                if (target.matches('.remove-from-cart-btn') || target.closest('.remove-from-cart-btn')) {
+                    const productId = target.closest('.remove-from-cart-btn').dataset.productId;
+                    removeFromCart(productId);
+                }
+               
+                // New: Delete order button for regular user's orders page
+                if (target.matches('.delete-order-btn') || target.closest('.delete-order-btn')) {
+                    const orderId = target.closest('.delete-order-btn').dataset.orderId;
+                    deleteOrder(orderId);
+                }
+
+                // New: Delete order button for admin's orders view
+                 if (target.matches('.delete-admin-order-btn') || target.closest('.delete-admin-order-btn')) {
+                    const orderId = target.closest('.delete-admin-order-btn').dataset.orderId;
+                    orders = orders.filter(order => order.id !== parseInt(orderId));
+                    showNotification('Admin deleted order successfully!', 'success');
+                    renderAdminOrders(); // Re-render admin orders list
+                }
+               
+                // New: Delete product button on admin dashboard
+                if (target.matches('.delete-product-btn') || target.closest('.delete-product-btn')) {
+                    const productId = target.closest('.delete-product-btn').dataset.productId;
+                    deleteProduct(productId);
+                }
+            });
+
+            // Navigation event listeners for the menu, home button, and footer links
+            document.querySelectorAll('[data-page]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = e.target.dataset.page;
+                   
+                    if (pageId === 'products-page') {
+                        renderProducts();
+                    } else if (pageId === 'account-page' && !loggedIn) {
+                         // If not logged in and clicking on account, show login modal
+                        loginModal.show();
+                        return; // Prevent navigation
+                    } else if (pageId === 'account-page') {
+                        // If logged in, render the account page
+                        renderAccountPage();
+                    } else if (pageId === 'orders-page' && loggedIn) {
+                        renderOrders();
+                    } else if (pageId === 'orders-page' && !loggedIn) {
+                         showNotification('Please log in to view your orders.', 'info');
+                         loginModal.show();
+                         return;
+                    } else if (pageId === 'admin-dashboard-page' && isAdmin) {
+                        // When admin goes to dashboard, render products by default
+                        renderAdminDashboard();
+                    }
+                    navigateTo(pageId);
+                });
+            });
+
+            // Admin Dashboard tab switching
+            manageProductsTab.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Deactivate other tabs
+                viewOrdersTab.classList.remove('active');
+                document.getElementById('view-orders').classList.remove('show', 'active');
+                // Activate current tab
+                manageProductsTab.classList.add('active');
+                document.getElementById('manage-products').classList.add('show', 'active');
+                renderAdminDashboard(); // Render products in the manage products tab
+            });
+
+            viewOrdersTab.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Deactivate other tabs
+                manageProductsTab.classList.remove('active');
+                document.getElementById('manage-products').classList.remove('show', 'active');
+                // Activate current tab
+                viewOrdersTab.classList.add('active');
+                document.getElementById('view-orders').classList.add('show', 'active');
+                renderAdminOrders(); // Render orders in the view orders tab
+            });
+
+            // Back button on product page
+            backToDashboardBtn.addEventListener('click', () => navigateTo('products-page'));
+           
+            // Cart & Checkout
+            cartBtn.addEventListener('click', () => {
+                if (cart.length > 0) {
+                    cartModal.show();
+                } else {
+                    showNotification('Your cart is empty. Add some products first!', 'info');
+                }
+            });
+            viewOrderSummaryBtn.addEventListener('click', renderOrderSummary);
+           
+            // Updated checkout flow
+            proceedToCheckoutBtn.addEventListener('click', () => {
+                if (!loggedIn) {
+                    showNotification('Please log in or register to proceed to checkout.', 'info');
+                    loginModal.show();
+                } else if (!userData.phone || !userData.address) {
+                    showNotification('Please add your phone number and address in your account details before placing an order.', 'info');
+                    renderAccountPage();
+                    toggleEditMode();
+                } else {
+                    // If all information is present, show the confirmation modal
+                    document.getElementById('confirmation-name').textContent = `Name: ${userData.name}`;
+                    document.getElementById('confirmation-phone').textContent = `Phone: ${userData.phone}`;
+                    document.getElementById('confirmation-address').textContent = `Address: ${userData.address}`;
+                    orderConfirmationModal.show();
+                }
+            });
+
+            // New confirmation modal buttons
+            confirmOrderBtn.addEventListener('click', () => {
+                orderConfirmationModal.hide();
+                placeOrder(); // Proceed to place the order
+            });
+
+            editAddressBtn.addEventListener('click', () => {
+                orderConfirmationModal.hide();
+                renderAccountPage();
+                toggleEditMode();
+            });
+
+            cancelSummaryBtn.addEventListener('click', () => navigateTo('home-page'));
+            codBtn.addEventListener('click', placeOrder);
+           
+            // Admin Dashboard form submit
+            addProductForm.addEventListener('submit', addProduct);
+
+            // Authentication
+            registerForm.addEventListener('submit', handleRegister);
+            loginForm.addEventListener('submit', handleLogin);
+           
+            // Logout button on the account page
+            logoutBtn.addEventListener('click', handleLogout); // Event listener for the new logout button
+
+            // Modal switching
+            document.getElementById('show-login-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                registerModal.hide();
+                loginModal.show();
+            });
+            document.getElementById('show-register-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                loginModal.hide();
+                registerModal.show();
+            });
+           
+            // Event listener for the "Shop Now" button on the new home page
+            goToProductsBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                renderProducts(); // Render products when clicking the button
+                navigateTo('products-page');
+            });
+           
+            // New event listeners for the account page form
+            editAccountBtn.addEventListener('click', toggleEditMode);
+            accountInfoForm.addEventListener('submit', handleSave);
+
+
+            // --- Initialization ---
+            updateCartDisplay();
+            updateUI();
+            navigateTo('home-page'); // Start on the new home page
+        });
+    </script>
+</body>
+</html>
